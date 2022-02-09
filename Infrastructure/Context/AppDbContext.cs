@@ -1,10 +1,5 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Context
 {
@@ -16,5 +11,20 @@ namespace Infrastructure.Context
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Project>()
+                .HasMany(e => e.Subjects)
+                .WithOne(e => e.Project);
+
+            modelBuilder
+                .Entity<Subject>()
+                .HasOne(e => e.Project)
+                .WithMany(e => e.Subjects)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

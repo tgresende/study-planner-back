@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "98503d67-a301-4b1c-870f-ad368aeed9bd": {
+      "ProjectGuid": "98503d67-a301-4b1c-870f-ad368aeed9bd",
+      "DisplayName": "Domain",
+      "ColorIndex": 0
+    },
+    "cf75af33-a5bd-48ba-8aa5-6cdd64e7a5f6": {
+      "ProjectGuid": "cf75af33-a5bd-48ba-8aa5-6cdd64e7a5f6",
+      "DisplayName": "Infrastructure",
+      "ColorIndex": 1
+    },
+    "a31b5517-3275-47d7-970d-dd2edb8bfd30": {
+      "ProjectGuid": "a31b5517-3275-47d7-970d-dd2edb8bfd30",
+      "DisplayName": "WebApi",
+      "ColorIndex": 2
+    },
+    "7f047af0-1a18-4078-9dd4-d3780c48933c": {
+      "ProjectGuid": "7f047af0-1a18-4078-9dd4-d3780c48933c",
+      "DisplayName": "Web_App",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

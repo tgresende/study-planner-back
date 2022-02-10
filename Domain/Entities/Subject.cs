@@ -12,5 +12,6 @@ namespace Domain.Entities
         public string Name { get; set; }
         public int Weight { get; set; }
         public Project Project { get; set; }
+        public List<Topic> Topics { get; set; }
     }
 }

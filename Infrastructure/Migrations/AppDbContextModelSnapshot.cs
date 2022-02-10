@@ -57,6 +57,26 @@ namespace Infrastructure.Migrations
                     b.ToTable("Subjects");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Topic", b =>
+                {
+                    b.Property<int>("TopicId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TopicId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Topics");
+                });
+
             modelBuilder.Entity("Domain.Entities.Subject", b =>
                 {
                     b.HasOne("Domain.Entities.Project", "Project")
@@ -67,9 +87,24 @@ namespace Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Topic", b =>
+                {
+                    b.HasOne("Domain.Entities.Subject", "Subject")
+                        .WithMany("Topics")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("Domain.Entities.Project", b =>
                 {
                     b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Subject", b =>
+                {
+                    b.Navigation("Topics");
                 });
 #pragma warning restore 612, 618
         }

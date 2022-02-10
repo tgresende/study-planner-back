@@ -57,6 +57,9 @@ namespace Web_App
 
             app.UseRouting();
 
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod()
+                           .SetIsOriginAllowed(_ => true).AllowCredentials());
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Web_App.Controllers.UseCases.Subjects
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class SubjectsController : ControllerBase
     {
         private readonly IGetSubjectsFromProjectUseCase _getSubjectsUseCase;

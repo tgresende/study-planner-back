@@ -11,5 +11,7 @@ namespace Infrastructure.Interfaces
     public interface ISubjectRepository
     {
         Task<List<GetSubjectsFromProjectResponseModel>> GetSubjectsFromProject(Project project);
+
+        Task<Subject> GetSubject(int subjectId);
     }
 }

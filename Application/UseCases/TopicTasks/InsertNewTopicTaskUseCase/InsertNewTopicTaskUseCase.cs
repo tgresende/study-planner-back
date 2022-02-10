@@ -28,8 +28,11 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
 
         public async Task<Notification> InsertNewTopicTask(InsertNewTopicTaskRequestModel topicTaskRequestModel)
         {
-            Topic topic = await topicRepository.GetTopic(topicTaskRequestModel.TopicId);
+            ValidateTopicTaskRequestModel(topicTaskRequestModel);
 
+            if (ErrorOccured()) return notification;
+
+            Topic topic = await topicRepository.GetTopic(topicTaskRequestModel.TopicId);
             ValidateTopic(topic);
 
             if (ErrorOccured()) return notification;
@@ -47,6 +50,15 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
         {
             if (topic == null)
                 notification.AddErrorMessage("Assunto não encontrado na base de dados");
+        }
+
+        private void ValidateTopicTaskRequestModel(InsertNewTopicTaskRequestModel topicTaskRequestModel)
+        {
+            int questionsDone = topicTaskRequestModel.DoneQuestionQuantity;
+            int questionsCorrect = topicTaskRequestModel.CorrectQuestionQuantity;
+
+            if (questionsDone < questionsCorrect)
+                notification.AddErrorMessage("Quantidade de questões feitas menor que a quantidade de questões corretas.");
         }
 
         private bool ErrorOccured()

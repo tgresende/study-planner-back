@@ -20,7 +20,12 @@
       "ProjectGuid": "7f047af0-1a18-4078-9dd4-d3780c48933c",
       "DisplayName": "Web_App",
       "ColorIndex": 3
+    },
+    "1264e673-e769-4bde-a941-56c60ff44417": {
+      "ProjectGuid": "1264e673-e769-4bde-a941-56c60ff44417",
+      "DisplayName": "Application",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

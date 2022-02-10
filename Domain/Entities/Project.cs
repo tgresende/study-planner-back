@@ -10,5 +10,6 @@ namespace Domain.Entities
     {
         public int ProjectId { get; set; }
         public string Name { get; set; }
+        public virtual List<Subject> Subjects { get; set; }
     }
 }

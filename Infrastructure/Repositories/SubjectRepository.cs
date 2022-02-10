@@ -29,5 +29,10 @@ namespace Infrastructure.Repositories
                     Weight = sub.Weight,
                 }).ToListAsync();
         }
+
+        public async Task<Subject> GetSubject(int subjectId)
+        {
+            return await _context.Subjects.FindAsync(subjectId);
+        }
     }
 }

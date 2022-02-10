@@ -10,7 +10,7 @@ namespace Domain.Entities
     {
         public int TopicTaskId { get; set; }
         public Topic Topic { get; set; }
-        public int Data { get; set; }
+        public long DateTimestamp { get; set; }
         public string Action { get; set; }
         public string ActionDescription { get; set; }
         public string ActionSource { get; set; }

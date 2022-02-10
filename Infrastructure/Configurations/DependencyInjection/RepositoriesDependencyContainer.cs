@@ -11,6 +11,8 @@ namespace Infrastructure.Configurations.DependencyInjection
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<ITopicRepository, TopicRepository>();
+            services.AddScoped<ITopicTaskRepository, TopicTaskRepository>();
+            services.AddScoped<IUnitWork, UnitWork>();
         }
     }
 }

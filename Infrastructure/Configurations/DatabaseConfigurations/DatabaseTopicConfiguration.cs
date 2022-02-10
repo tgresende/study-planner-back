@@ -12,6 +12,11 @@ namespace Infrastructure.Configurations.DatabaseConfigurations
                .HasOne(e => e.Subject)
                .WithMany(e => e.Topics)
                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+             .Entity<Topic>()
+             .HasMany(e => e.TopicTasks)
+             .WithOne(e => e.Topic);
         }
     }
 }

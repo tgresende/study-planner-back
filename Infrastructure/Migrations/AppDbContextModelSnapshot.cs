@@ -77,6 +77,44 @@ namespace Infrastructure.Migrations
                     b.ToTable("Topics");
                 });
 
+            modelBuilder.Entity("Domain.Entities.TopicTask", b =>
+                {
+                    b.Property<int>("TopicTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Action")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ActionDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ActionSource")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CorrectQuestionQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<long>("DateTimestamp")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("DoneQuestionQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RevisionItem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TopicId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TopicTaskId");
+
+                    b.HasIndex("TopicId");
+
+                    b.ToTable("TopicTasks");
+                });
+
             modelBuilder.Entity("Domain.Entities.Subject", b =>
                 {
                     b.HasOne("Domain.Entities.Project", "Project")
@@ -97,6 +135,16 @@ namespace Infrastructure.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("Domain.Entities.TopicTask", b =>
+                {
+                    b.HasOne("Domain.Entities.Topic", "Topic")
+                        .WithMany("TopicTasks")
+                        .HasForeignKey("TopicId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Topic");
+                });
+
             modelBuilder.Entity("Domain.Entities.Project", b =>
                 {
                     b.Navigation("Subjects");
@@ -105,6 +153,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Subject", b =>
                 {
                     b.Navigation("Topics");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Topic", b =>
+                {
+                    b.Navigation("TopicTasks");
                 });
 #pragma warning restore 612, 618
         }

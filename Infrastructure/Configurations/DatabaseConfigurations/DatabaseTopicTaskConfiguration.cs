@@ -3,20 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Configurations.DatabaseConfigurations
 {
-    public class DatabaseTopicConfiguration
+    public class DatabaseTopicTaskConfiguration
     {
         public static void Configure(ModelBuilder modelBuilder)
         {
             modelBuilder
-               .Entity<Topic>()
-               .HasOne(e => e.Subject)
-               .WithMany(e => e.Topics)
+               .Entity<TopicTask>()
+               .HasOne(e => e.Topic)
+               .WithMany(e => e.TopicTasks)
                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder
-             .Entity<Topic>()
-             .HasMany(e => e.TopicTasks)
-             .WithOne(e => e.Topic);
         }
     }
 }

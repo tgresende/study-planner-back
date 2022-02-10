@@ -30,5 +30,10 @@ namespace Infrastructure.Repositories
                    Name = topic.Name
                }).ToListAsync();
         }
+
+        public async Task<Topic> GetTopic(int topicId)
+        {
+            return await _context.Topics.FindAsync(topicId);
+        }
     }
 }

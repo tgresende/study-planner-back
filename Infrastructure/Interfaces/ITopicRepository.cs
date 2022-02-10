@@ -8,5 +8,7 @@ namespace Infrastructure.Interfaces
     public interface ITopicRepository
     {
         Task<List<GetTopicsFromSubjectResponseModel>> GetTopicsFromSubject(Subject subject);
+
+        Task<Topic> GetTopic(int topicId);
     }
 }

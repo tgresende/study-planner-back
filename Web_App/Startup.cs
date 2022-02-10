@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web_App.Configurations.DependencyInjection;
 
 namespace Web_App
 {
@@ -32,6 +33,8 @@ namespace Web_App
             {
                 options.UseSqlServer(Configuration.GetConnectionString("dbConnection"));
             });
+
+            RegisterServices(services);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -60,6 +63,11 @@ namespace Web_App
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            DependencyContainer.RegisterServices(services);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Application.UseCases.Subjects.GetSubjectsFromProjectUseCase;
+﻿using Application.Services.Notifications;
+using Application.UseCases.Subjects.GetSubjectsFromProjectUseCase;
 using Application.UseCases.Topics.GetTopicsFromSubjectUseCase;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,6 +20,7 @@ namespace Application.Configurations.DependencyInjection
 
         public static void RegisterApplcationServices(IServiceCollection services)
         {
+            services.AddScoped<INotification, Notification>();
         }
     }
 }

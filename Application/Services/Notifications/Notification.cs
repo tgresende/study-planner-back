@@ -10,6 +10,11 @@ namespace Application.Services.Notifications
     {
         private List<string> errors;
 
+        public Notification()
+        {
+            errors = new List<string>();
+        }
+
         public void AddErrorMessage(string errorMessage)
         {
             errors.Add(errorMessage);

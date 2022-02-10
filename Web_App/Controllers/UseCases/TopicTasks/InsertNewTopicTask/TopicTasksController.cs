@@ -17,14 +17,14 @@ namespace Web_App.Controllers.UseCases.TopicTasks.InsertNewTopicTask
         }
 
         [HttpPost("InsertNewTopicTask")]
-        public async Task AddTopicTask([FromBody] InsertNewTopicTaskRequestModel requestModel)
+        public async Task<ActionResult> AddTopicTask([FromBody] InsertNewTopicTaskRequestModel requestModel)
         {
             Notification notification = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
 
             if (notification.ErrorsOccured())
-                BadRequest(notification.GetErrorMessages());
+                return BadRequest(notification.GetErrorMessages());
 
-            Ok();
+            return Ok();
         }
     }
 }

@@ -38,6 +38,8 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
 
             await topicTaskRepository.InsertNewTopicTask(newTopicTask);
 
+            await unitWork.SaveChanges();
+
             return notification;
         }
 

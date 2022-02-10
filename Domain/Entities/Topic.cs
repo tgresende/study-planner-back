@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Subject
+    public class Topic
     {
-        public int SubjectId { get; set; }
+        public int TopicId { get; set; }
         public string Name { get; set; }
-        public int Weight { get; set; }
-        public Project Project { get; set; }
-        public List<Topic> Topics { get; set; }
+        public Subject Subject { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace Application.Services.Notifications
 
         public void AddErrorMessage(string errorMessage)
         {
-            errors.Add(errorMessage);
+            if (errorMessage.Trim().Length > 0)
+                errors.Add(errorMessage);
         }
 
         public bool ErrorsOccured()
@@ -27,7 +28,9 @@ namespace Application.Services.Notifications
 
         public List<string> GetErrorMessages()
         {
-            return errors;
+            if (errors.Any())
+                return errors;
+            return null;
         }
     }
 }

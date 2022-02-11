@@ -2,9 +2,6 @@
 using Domain.Entities;
 using Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
@@ -54,6 +51,9 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
 
         private void ValidateTopicTaskRequestModel(InsertNewTopicTaskRequestModel topicTaskRequestModel)
         {
+            if (topicTaskRequestModel.TopicId <= 0)
+                notification.AddErrorMessage("Assunto não informado");
+
             int questionsDone = topicTaskRequestModel.DoneQuestionQuantity;
             int questionsCorrect = topicTaskRequestModel.CorrectQuestionQuantity;
 

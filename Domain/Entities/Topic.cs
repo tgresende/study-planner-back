@@ -10,6 +10,7 @@ namespace Domain.Entities
     {
         public int TopicId { get; set; }
         public string Name { get; set; }
+        public string Anotations { get; set; }
         public Subject Subject { get; set; }
         public List<TopicTask> TopicTasks { get; set; }
     }

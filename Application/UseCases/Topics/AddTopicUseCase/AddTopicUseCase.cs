@@ -2,9 +2,6 @@
 using Domain.Entities;
 using Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.UseCases.Topics.AddTopicUseCase
@@ -14,18 +11,20 @@ namespace Application.UseCases.Topics.AddTopicUseCase
         private readonly INotification notification;
         private readonly ISubjectRepository subjectRepository;
         private readonly ITopicRepository topicRepository;
+        private readonly IUnitWork unitWork;
 
         public AddTopicUseCase(ISubjectRepository subjectRepository, ITopicRepository topicRepository,
-            INotification notification)
+            INotification notification, IUnitWork unitWork)
         {
             this.notification = notification;
             this.subjectRepository = subjectRepository;
             this.topicRepository = topicRepository;
+            this.unitWork = unitWork;
         }
 
-        public async Task<Topic?> InsertTopic(AddNewTopicRequestModel requestModel)
+        public async Task<AddTopicResponseModel?> InsertTopic(AddNewTopicRequestModel requestModel)
         {
-            ValidateRequestModel(requestModel);
+            IsValidRequestModel(requestModel);
 
             if (notification.ErrorsOccured())
             {
@@ -40,6 +39,14 @@ namespace Application.UseCases.Topics.AddTopicUseCase
                 return null;
             }
 
+            bool validTopicName = await IsValidTopicName(requestModel, subject);
+
+            if (!validTopicName)
+            {
+                notification.AddErrorMessage("Tópico já existe.");
+                return null;
+            }
+
             Topic topic = new Topic
             {
                 Anotations = requestModel.Anotations,
@@ -49,16 +56,36 @@ namespace Application.UseCases.Topics.AddTopicUseCase
 
             await topicRepository.InsertTopic(topic);
 
-            return topic;
+            await unitWork.SaveChanges();
+
+            return MapTopicToAddTopicResponseModel(topic);
         }
 
-        private void ValidateRequestModel(AddNewTopicRequestModel requestModel)
+        private void IsValidRequestModel(AddNewTopicRequestModel requestModel)
         {
             if (requestModel.SubjectId == 0)
                 notification.AddErrorMessage("Assunto não informado");
 
             if (String.IsNullOrEmpty(requestModel.Name))
                 notification.AddErrorMessage("Nome do tópico não informado");
+        }
+
+        private AddTopicResponseModel MapTopicToAddTopicResponseModel(Topic topic)
+        {
+            return new AddTopicResponseModel
+            {
+                TopicId = topic.TopicId,
+                Anotations = topic.Anotations,
+                Name = topic.Name,
+                SubjectId = topic.Subject.SubjectId
+            };
+        }
+
+        private async Task<bool> IsValidTopicName(AddNewTopicRequestModel requestModel, Subject subject)
+        {
+            Topic topic = await topicRepository.GetTopic(requestModel.Name, subject);
+
+            return (topic == null);
         }
     }
 }

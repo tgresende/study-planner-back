@@ -23,12 +23,12 @@ namespace Web_App.Controllers.UseCases.Topics.InsertNewTopic
         [HttpPost("InsertTopic")]
         public async Task<IActionResult> Get([FromBody] AddNewTopicRequestModel requestModel)
         {
-            Topic topic = await addTopicUseCase.InsertTopic(requestModel);
+            AddTopicResponseModel newTopic = await addTopicUseCase.InsertTopic(requestModel);
 
             if (notification.ErrorsOccured())
                 return BadRequest(notification.GetErrorMessages());
 
-            return Ok(topic);
+            return Ok(newTopic);
         }
     }
 }

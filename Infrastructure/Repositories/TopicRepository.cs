@@ -41,5 +41,12 @@ namespace Infrastructure.Repositories
         {
             return await _context.Topics.FindAsync(topicId);
         }
+
+        public async Task<Topic> GetTopic(string topicName, Subject subject)
+        {
+            return await _context.Topics.FirstOrDefaultAsync(
+                topic => topic.Name == topicName && topic.Subject == subject
+            );
+        }
     }
 }

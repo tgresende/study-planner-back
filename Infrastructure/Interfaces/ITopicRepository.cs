@@ -11,6 +11,8 @@ namespace Infrastructure.Interfaces
 
         Task<Topic> GetTopic(int topicId);
 
+        Task<Topic> GetTopic(string topicName, Subject subject);
+
         Task InsertTopic(Topic topic);
     }
 }

@@ -12,16 +12,19 @@ namespace Application.UseCases.TopicTasks.GetActiveTopicTasksUseCase
         private readonly ITopicTaskRepository topicTaskRepository;
         private readonly INotification notification;
         private readonly ISubjectRepository subjectRepository;
+        private readonly ITopicRepository topicRepository;
 
         public GetActiveTopicTasksUseCase(
             ITopicTaskRepository topicTaskRepository,
             INotification notification,
-            ISubjectRepository subjectRepository
+            ISubjectRepository subjectRepository,
+            ITopicRepository topicRepository
         )
         {
             this.topicTaskRepository = topicTaskRepository;
             this.notification = notification;
             this.subjectRepository = subjectRepository;
+            this.topicRepository = topicRepository;
         }
 
         public async Task<List<GetActiveTopicTaskResponseModel>?> GetActiveTopicTasks(int subjectId)
@@ -34,9 +37,13 @@ namespace Application.UseCases.TopicTasks.GetActiveTopicTasksUseCase
                 return null;
             }
 
-            var task = await topicTaskRepository.GetActiveTopicTasks(subject);
+            var topicsId = await topicRepository.GetTopicsIds(subject);
+
+            var task = await topicTaskRepository.GetActiveTopicTasks(topicsId);
+
             List<GetActiveTopicTaskResponseModel> respondeModelList =
                 new List<GetActiveTopicTaskResponseModel>();
+
             foreach (TopicTask topicTask in task)
             {
                 respondeModelList.Add(ConvertTopicTaskToGetActiveTopicTaskResponseModel(topicTask));

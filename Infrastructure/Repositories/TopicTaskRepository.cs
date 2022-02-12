@@ -24,12 +24,15 @@ namespace Infrastructure.Repositories
             await context.TopicTasks.AddAsync(topicTask);
         }
 
-        public async Task<List<TopicTask>> GetActiveTopicTasks(Subject subject)
+        public async Task<List<TopicTask>> GetActiveTopicTasks(List<int> topicIds)
         {
-            Subject sub = await context.Subjects
-                .Include(sub => sub.Topics)
-                .ThenInclude(top => top.TopicTasks)
-                .FirstOrDefault(sub => sub.SubjectId == subject.SubjectId);
+            return await context.TopicTasks
+                .Where(task =>
+                    task.Status == Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready &&
+                    topicIds.Any(id => id == task.Topic.TopicId)
+                 )
+                .Include(task => task.Topic)
+                .ToListAsync();
         }
     }
 }

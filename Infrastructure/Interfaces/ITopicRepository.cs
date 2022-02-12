@@ -10,5 +10,7 @@ namespace Infrastructure.Interfaces
         Task<List<GetTopicsFromSubjectResponseModel>> GetTopicsFromSubject(Subject subject);
 
         Task<Topic> GetTopic(int topicId);
+
+        Task InsertTopic(Topic topic);
     }
 }

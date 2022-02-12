@@ -27,8 +27,14 @@ namespace Infrastructure.Repositories
                .Select(topic => new GetTopicsFromSubjectResponseModel
                {
                    TopicId = topic.TopicId,
-                   Name = topic.Name
+                   Name = topic.Name,
+                   Anotations = topic.Anotations
                }).ToListAsync();
+        }
+
+        public async Task InsertTopic(Topic topic)
+        {
+            await _context.Topics.AddAsync(topic);
         }
 
         public async Task<Topic> GetTopic(int topicId)

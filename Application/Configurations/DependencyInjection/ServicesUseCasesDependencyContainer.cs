@@ -1,5 +1,6 @@
 ﻿using Application.Services.Notifications;
 using Application.UseCases.Subjects.GetSubjectsFromProjectUseCase;
+using Application.UseCases.Topics.AddTopicUseCase;
 using Application.UseCases.Topics.GetTopicsFromSubjectUseCase;
 using Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace Application.Configurations.DependencyInjection
             services.AddScoped<IGetSubjectsFromProjectUseCase, GetSubjectsFromProjectUseCase>();
             services.AddScoped<IGetTopicsFromSubjectUseCase, GetTopicsFromSubjectUseCase>();
             services.AddScoped<IInsertNewTopicTaskUseCase, InsertNewTopicTaskUseCase>();
+            services.AddScoped<IAddTopicUseCase, AddTopicUseCase>();
         }
 
         public static void RegisterApplcationServices(IServiceCollection services)

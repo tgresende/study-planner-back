@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Web_App.Controllers.UseCases.Topics.GetTopicsFromProject
+namespace Web_App.Controllers.UseCases.Topics.GetTopicsFromProject2
 {
     [ApiController]
     [Route("api/[controller]")]

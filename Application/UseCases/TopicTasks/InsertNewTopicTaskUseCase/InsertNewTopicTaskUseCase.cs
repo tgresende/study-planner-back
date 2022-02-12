@@ -58,12 +58,6 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
         {
             if (topicTaskRequestModel.TopicId <= 0)
                 notification.AddErrorMessage("Assunto não informado");
-
-            int questionsDone = topicTaskRequestModel.DoneQuestionQuantity;
-            int questionsCorrect = topicTaskRequestModel.CorrectQuestionQuantity;
-
-            if (questionsDone < questionsCorrect)
-                notification.AddErrorMessage("Quantidade de questões feitas menor que a quantidade de questões corretas.");
         }
 
         private bool ErrorOccured()
@@ -80,9 +74,6 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
                 Action = topicTaskRequestModel.Action,
                 ActionDescription = topicTaskRequestModel.ActionDescription,
                 ActionSource = topicTaskRequestModel.ActionSource,
-                CorrectQuestionQuantity = topicTaskRequestModel.CorrectQuestionQuantity,
-                DoneQuestionQuantity = topicTaskRequestModel.DoneQuestionQuantity,
-                RevisionItem = topicTaskRequestModel.RevisionItem,
                 Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
             };
         }
@@ -96,9 +87,6 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
                 Action = newTopicTask.Action,
                 ActionDescription = newTopicTask.ActionDescription,
                 ActionSource = newTopicTask.ActionSource,
-                CorrectQuestionQuantity = newTopicTask.CorrectQuestionQuantity,
-                DoneQuestionQuantity = newTopicTask.DoneQuestionQuantity,
-                RevisionItem = newTopicTask.RevisionItem,
                 Status = (int)newTopicTask.Status
             };
         }

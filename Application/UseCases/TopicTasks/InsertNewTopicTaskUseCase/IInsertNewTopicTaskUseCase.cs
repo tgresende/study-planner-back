@@ -5,6 +5,6 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
 {
     public interface IInsertNewTopicTaskUseCase
     {
-        Task<Notification> InsertNewTopicTask(InsertNewTopicTaskRequestModel topicTaskRequestModel);
+        Task<AddTopicTaskResponseModel> InsertNewTopicTask(InsertNewTopicTaskRequestModel topicTaskRequestModel);
     }
 }

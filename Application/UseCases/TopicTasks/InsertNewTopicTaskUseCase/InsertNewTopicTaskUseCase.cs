@@ -11,28 +11,33 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
         private readonly ITopicTaskRepository topicTaskRepository;
         private readonly ITopicRepository topicRepository;
         private readonly IUnitWork unitWork;
-        private Notification notification;
+        private readonly INotification notification;
 
-        public InsertNewTopicTaskUseCase(ITopicTaskRepository topicTaskRepo,
+        public InsertNewTopicTaskUseCase(
+            ITopicTaskRepository topicTaskRepo,
             ITopicRepository topicRepo,
-            IUnitWork unitWork)
+            IUnitWork unitWork,
+            INotification notification
+            )
         {
             this.unitWork = unitWork;
             topicTaskRepository = topicTaskRepo;
             topicRepository = topicRepo;
-            this.notification = new Notification();
+            this.notification = notification;
         }
 
-        public async Task<Notification> InsertNewTopicTask(InsertNewTopicTaskRequestModel topicTaskRequestModel)
+        public async Task<AddTopicTaskResponseModel?> InsertNewTopicTask(InsertNewTopicTaskRequestModel topicTaskRequestModel)
         {
             ValidateTopicTaskRequestModel(topicTaskRequestModel);
 
-            if (ErrorOccured()) return notification;
+            if (ErrorOccured())
+                return null;
 
             Topic topic = await topicRepository.GetTopic(topicTaskRequestModel.TopicId);
             ValidateTopic(topic);
 
-            if (ErrorOccured()) return notification;
+            if (ErrorOccured())
+                return null;
 
             TopicTask newTopicTask = ConvertRequestModelToEntity(topicTaskRequestModel, topic);
 
@@ -40,7 +45,7 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
 
             await unitWork.SaveChanges();
 
-            return notification;
+            return mapTopicTasktoAddTopicTaskResponseModel(newTopicTask);
         }
 
         private void ValidateTopic(Topic topic)
@@ -53,12 +58,6 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
         {
             if (topicTaskRequestModel.TopicId <= 0)
                 notification.AddErrorMessage("Assunto não informado");
-
-            int questionsDone = topicTaskRequestModel.DoneQuestionQuantity;
-            int questionsCorrect = topicTaskRequestModel.CorrectQuestionQuantity;
-
-            if (questionsDone < questionsCorrect)
-                notification.AddErrorMessage("Quantidade de questões feitas menor que a quantidade de questões corretas.");
         }
 
         private bool ErrorOccured()
@@ -75,9 +74,20 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
                 Action = topicTaskRequestModel.Action,
                 ActionDescription = topicTaskRequestModel.ActionDescription,
                 ActionSource = topicTaskRequestModel.ActionSource,
-                CorrectQuestionQuantity = topicTaskRequestModel.CorrectQuestionQuantity,
-                DoneQuestionQuantity = topicTaskRequestModel.DoneQuestionQuantity,
-                RevisionItem = topicTaskRequestModel.RevisionItem
+                Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
+            };
+        }
+
+        private AddTopicTaskResponseModel mapTopicTasktoAddTopicTaskResponseModel(TopicTask newTopicTask)
+        {
+            return new AddTopicTaskResponseModel
+            {
+                TopicId = newTopicTask.Topic.TopicId,
+                TopicTaskId = newTopicTask.TopicTaskId,
+                Action = newTopicTask.Action,
+                ActionDescription = newTopicTask.ActionDescription,
+                ActionSource = newTopicTask.ActionSource,
+                Status = (int)newTopicTask.Status
             };
         }
     }

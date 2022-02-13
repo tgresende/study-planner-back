@@ -32,6 +32,14 @@ namespace Infrastructure.Repositories
                }).ToListAsync();
         }
 
+        public async Task<List<int>> GetTopicsIds(Subject subject)
+        {
+            return await _context.Topics
+              .Where(topic => topic.Subject == subject)
+              .Select(topic => topic.TopicId)
+              .ToListAsync();
+        }
+
         public async Task InsertTopic(Topic topic)
         {
             await _context.Topics.AddAsync(topic);

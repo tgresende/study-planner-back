@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,6 @@ namespace Domain.Entities
         public string RevisionItem { get; set; }
         public int DoneQuestionQuantity { get; set; }
         public int CorrectQuestionQuantity { get; set; }
+        public TopicTaskEnum.TopicTaskStatus Status { get; set; }
     }
 }

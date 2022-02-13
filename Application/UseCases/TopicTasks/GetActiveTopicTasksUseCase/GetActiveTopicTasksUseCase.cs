@@ -61,7 +61,8 @@ namespace Application.UseCases.TopicTasks.GetActiveTopicTasksUseCase
                 ActionSource = task.ActionSource,
                 Status = (int)task.Status,
                 TopicId = task.Topic.TopicId,
-                TopicTaskId = task.TopicTaskId
+                TopicTaskId = task.TopicTaskId,
+                TopicName = task.Topic.Name
             };
         }
     }

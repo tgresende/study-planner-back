@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,17 @@ namespace Infrastructure.Repositories
         public async Task InsertNewTopicTask(TopicTask topicTask)
         {
             await context.TopicTasks.AddAsync(topicTask);
+        }
+
+        public async Task<List<TopicTask>> GetActiveTopicTasks(List<int> topicIds)
+        {
+            return await context.TopicTasks
+                .Where(task =>
+                    task.Status == Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready &&
+                    topicIds.Any(id => id == task.Topic.TopicId)
+                 )
+                .Include(task => task.Topic)
+                .ToListAsync();
         }
     }
 }

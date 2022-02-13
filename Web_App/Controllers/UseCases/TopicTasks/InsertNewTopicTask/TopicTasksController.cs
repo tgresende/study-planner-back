@@ -10,21 +10,26 @@ namespace Web_App.Controllers.UseCases.TopicTasks.InsertNewTopicTask
     public class TopicTasksController : ControllerBase
     {
         private readonly IInsertNewTopicTaskUseCase insertNewTopicTaskUseCase;
+        private readonly INotification notification;
 
-        public TopicTasksController(IInsertNewTopicTaskUseCase insertNewTopicTaskUseCase)
+        public TopicTasksController(
+            IInsertNewTopicTaskUseCase insertNewTopicTaskUseCase,
+            INotification notification
+        )
         {
             this.insertNewTopicTaskUseCase = insertNewTopicTaskUseCase;
+            this.notification = notification;
         }
 
         [HttpPost("InsertNewTopicTask")]
         public async Task<ActionResult> AddTopicTask([FromBody] InsertNewTopicTaskRequestModel requestModel)
         {
-            Notification notification = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
+            AddTopicTaskResponseModel topicTask = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
 
             if (notification.ErrorsOccured())
                 return BadRequest(notification.GetErrorMessages());
 
-            return Ok();
+            return Ok(topicTask);
         }
     }
 }

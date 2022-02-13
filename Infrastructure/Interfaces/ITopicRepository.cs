@@ -9,6 +9,8 @@ namespace Infrastructure.Interfaces
     {
         Task<List<GetTopicsFromSubjectResponseModel>> GetTopicsFromSubject(Subject subject);
 
+        Task<List<int>> GetTopicsIds(Subject subject);
+
         Task<Topic> GetTopic(int topicId);
 
         Task<Topic> GetTopic(string topicName, Subject subject);

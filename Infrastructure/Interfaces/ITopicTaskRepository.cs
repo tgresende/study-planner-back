@@ -10,5 +10,7 @@ namespace Infrastructure.Interfaces
     public interface ITopicTaskRepository
     {
         Task InsertNewTopicTask(TopicTask topicTask);
+
+        Task<List<TopicTask>> GetActiveTopicTasks(List<int> topicIds);
     }
 }

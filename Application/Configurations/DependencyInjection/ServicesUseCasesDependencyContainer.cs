@@ -1,5 +1,6 @@
 ﻿using Application.Services.Notifications;
 using Application.UseCases.Subjects.GetSubjectsFromProjectUseCase;
+using Application.UseCases.Subjects.UpdateSubjectAnnotationsUseCase;
 using Application.UseCases.Topics.AddTopicUseCase;
 using Application.UseCases.Topics.GetTopicsFromSubjectUseCase;
 using Application.UseCases.TopicTasks.GetActiveTopicTasksUseCase;
@@ -13,6 +14,7 @@ namespace Application.Configurations.DependencyInjection
         public static void RegisterApplcationUseCases(IServiceCollection services)
         {
             services.AddScoped<IGetSubjectsFromProjectUseCase, GetSubjectsFromProjectUseCase>();
+            services.AddScoped<IUpdateSubjectAnnotationsUseCase, UpdateSubjectAnnotationsUseCase>();
 
             services.AddScoped<IGetTopicsFromSubjectUseCase, GetTopicsFromSubjectUseCase>();
             services.AddScoped<IAddTopicUseCase, AddTopicUseCase>();

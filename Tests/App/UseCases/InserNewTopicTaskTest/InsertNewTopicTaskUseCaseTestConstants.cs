@@ -11,9 +11,6 @@ namespace Tests.App.UseCases.InserNewTopicTaskTest
                 Action = "abc",
                 ActionDescription = "abc",
                 ActionSource = "abc",
-                CorrectQuestionQuantity = 0,
-                DoneQuestionQuantity = 0,
-                RevisionItem = "abc",
                 TopicId = 1
             };
         }

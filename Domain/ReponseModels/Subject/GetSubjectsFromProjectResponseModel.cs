@@ -11,5 +11,6 @@ namespace Domain.ReponseModels.Subject
         public int SubjectId { get; set; }
         public string Name { get; set; }
         public int Weight { get; set; }
+        public string Annotations { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Tests.App.UseCases.InserNewTopicTaskTest
 
             CreateuseCaseObject();
 
-            notification = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
+            var responseModel = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
 
             string expectedMessage = "Assunto não encontrado na base de dados";
 
@@ -50,7 +50,7 @@ namespace Tests.App.UseCases.InserNewTopicTaskTest
 
             CreateuseCaseObject();
 
-            notification = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
+            var responseModel = await insertNewTopicTaskUseCase.InsertNewTopicTask(requestModel);
 
             string expectedMessage = "Assunto não informado";
 
@@ -65,7 +65,8 @@ namespace Tests.App.UseCases.InserNewTopicTaskTest
                   = new InsertNewTopicTaskUseCase(
                          topicTaskRepository.Object,
                          topicRepository.Object,
-                         unitWork.Object
+                         unitWork.Object,
+                         notification
                          );
         }
     }

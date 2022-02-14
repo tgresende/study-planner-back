@@ -11,6 +11,7 @@ namespace Domain.Entities
         public int SubjectId { get; set; }
         public string Name { get; set; }
         public int Weight { get; set; }
+        public string Annotations { get; set; }
         public Project Project { get; set; }
         public List<Topic> Topics { get; set; }
     }

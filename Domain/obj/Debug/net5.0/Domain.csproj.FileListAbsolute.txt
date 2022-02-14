@@ -2,7 +2,6 @@ C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\bin\Debu
 C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\bin\Debug\net5.0\Domain.dll
 C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\bin\Debug\net5.0\ref\Domain.dll
 C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\bin\Debug\net5.0\Domain.pdb
-C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\obj\Debug\net5.0\Domain.csproj.AssemblyReference.cache
 C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\obj\Debug\net5.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\obj\Debug\net5.0\Domain.AssemblyInfoInputs.cache
 C:\Users\DTI Digital\Desktop\pessoal\repos\backend\study-planner\Domain\obj\Debug\net5.0\Domain.AssemblyInfo.cs

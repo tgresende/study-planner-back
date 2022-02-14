@@ -27,6 +27,7 @@ namespace Infrastructure.Repositories
                     SubjectId = sub.SubjectId,
                     Name = sub.Name,
                     Weight = sub.Weight,
+                    Annotations = sub.Annotations,
                 }).ToListAsync();
         }
 

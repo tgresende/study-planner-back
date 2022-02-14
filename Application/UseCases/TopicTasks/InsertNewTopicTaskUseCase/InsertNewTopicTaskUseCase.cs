@@ -87,7 +87,8 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
                 Action = newTopicTask.Action,
                 ActionDescription = newTopicTask.ActionDescription,
                 ActionSource = newTopicTask.ActionSource,
-                Status = (int)newTopicTask.Status
+                Status = (int)newTopicTask.Status,
+                TopicName = newTopicTask.Topic.Name
             };
         }
     }

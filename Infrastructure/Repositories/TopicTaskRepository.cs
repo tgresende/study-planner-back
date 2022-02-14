@@ -34,5 +34,11 @@ namespace Infrastructure.Repositories
                 .Include(task => task.Topic)
                 .ToListAsync();
         }
+
+        public async Task<TopicTask> GetTopicTask(int topicTaskId)
+        {
+            return await context.TopicTasks
+                .FindAsync(topicTaskId);
+        }
     }
 }

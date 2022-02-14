@@ -12,5 +12,7 @@ namespace Infrastructure.Interfaces
         Task InsertNewTopicTask(TopicTask topicTask);
 
         Task<List<TopicTask>> GetActiveTopicTasks(List<int> topicIds);
+
+        Task<TopicTask> GetTopicTask(int topicTaskId);
     }
 }

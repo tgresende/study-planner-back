@@ -40,5 +40,12 @@ namespace Infrastructure.Repositories
             return await context.TopicTasks
                 .FindAsync(topicTaskId);
         }
+
+        public async Task<TopicTask> GetLastTopicTask(Topic topic)
+        {
+            return await context.TopicTasks
+                .OrderByDescending(x => x.DateTimestamp)
+                .FirstOrDefaultAsync(task => task.Topic == topic);
+        }
     }
 }

@@ -3,10 +3,8 @@ using Domain.ReponseModels.Topic;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -22,14 +20,20 @@ namespace Infrastructure.Repositories
 
         public async Task<List<GetTopicsFromSubjectResponseModel>> GetTopicsFromSubject(Subject subject)
         {
-            return await _context.Topics
-                .Where(topic => topic.Subject == subject)
-               .Select(topic => new GetTopicsFromSubjectResponseModel
-               {
-                   TopicId = topic.TopicId,
-                   Name = topic.Name,
-                   Anotations = topic.Anotations
-               }).ToListAsync();
+            List<int> topicIds = new List<int> { 2014, 2013 };
+
+            return await _context.TopicTasks
+                        .Where(task => task.Topic.Subject == subject)
+                        .GroupBy(r => new { r.Topic.TopicId, r.Topic.Anotations, r.Topic.Name })
+                        .Select(m => new GetTopicsFromSubjectResponseModel
+                        {
+                            TopicId = m.Key.TopicId,
+                            TopicAnotations = m.Key.Anotations,
+                            TopicName = m.Key.Name,
+                            TotalCorrectQuestion = m.Sum(r => r.CorrectQuestionQuantity),
+                            TotalDoneQuestion = m.Sum(r => r.DoneQuestionQuantity)
+                        }
+                     ).ToListAsync();
         }
 
         public async Task<List<int>> GetTopicsIds(Subject subject)

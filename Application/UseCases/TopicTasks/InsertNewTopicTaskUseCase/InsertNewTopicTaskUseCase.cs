@@ -1,4 +1,5 @@
 ﻿using Application.Services.Notifications;
+using Application.Services.TopicTasks;
 using Domain.Entities;
 using Infrastructure.Interfaces;
 using System;
@@ -12,18 +13,21 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
         private readonly ITopicRepository topicRepository;
         private readonly IUnitWork unitWork;
         private readonly INotification notification;
+        private readonly ITopicTaskServices topicTaskServices;
 
         public InsertNewTopicTaskUseCase(
             ITopicTaskRepository topicTaskRepo,
             ITopicRepository topicRepo,
             IUnitWork unitWork,
-            INotification notification
+            INotification notification,
+            ITopicTaskServices topicTaskServices
             )
         {
             this.unitWork = unitWork;
             topicTaskRepository = topicTaskRepo;
             topicRepository = topicRepo;
             this.notification = notification;
+            this.topicTaskServices = topicTaskServices;
         }
 
         public async Task<AddTopicTaskResponseModel?> InsertNewTopicTask(InsertNewTopicTaskRequestModel topicTaskRequestModel)
@@ -39,13 +43,13 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
             if (ErrorOccured())
                 return null;
 
-            TopicTask newTopicTask = ConvertRequestModelToEntity(topicTaskRequestModel, topic);
+            TopicTask newTopicTask = topicTaskServices.ConvertRequestModelToEntity(topicTaskRequestModel, topic);
 
             await topicTaskRepository.InsertNewTopicTask(newTopicTask);
 
             await unitWork.SaveChanges();
 
-            return mapTopicTasktoAddTopicTaskResponseModel(newTopicTask);
+            return topicTaskServices.MapTopicTasktoAddTopicTaskResponseModel(newTopicTask);
         }
 
         private void ValidateTopic(Topic topic)
@@ -63,33 +67,6 @@ namespace Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase
         private bool ErrorOccured()
         {
             return notification.ErrorsOccured();
-        }
-
-        private TopicTask ConvertRequestModelToEntity(InsertNewTopicTaskRequestModel topicTaskRequestModel, Topic topic)
-        {
-            return new TopicTask
-            {
-                Topic = topic,
-                DateTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(),
-                Action = topicTaskRequestModel.Action,
-                ActionDescription = topicTaskRequestModel.ActionDescription,
-                ActionSource = topicTaskRequestModel.ActionSource,
-                Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
-            };
-        }
-
-        private AddTopicTaskResponseModel mapTopicTasktoAddTopicTaskResponseModel(TopicTask newTopicTask)
-        {
-            return new AddTopicTaskResponseModel
-            {
-                TopicId = newTopicTask.Topic.TopicId,
-                TopicTaskId = newTopicTask.TopicTaskId,
-                Action = newTopicTask.Action,
-                ActionDescription = newTopicTask.ActionDescription,
-                ActionSource = newTopicTask.ActionSource,
-                Status = (int)newTopicTask.Status,
-                TopicName = newTopicTask.Topic.Name
-            };
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Interfaces
@@ -14,5 +11,7 @@ namespace Infrastructure.Interfaces
         Task<List<TopicTask>> GetActiveTopicTasks(List<int> topicIds);
 
         Task<TopicTask> GetTopicTask(int topicTaskId);
+
+        Task<TopicTask> GetLastTopicTask(Topic topic);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Services.Notifications;
+using Application.Services.TopicTask;
 using Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase;
 using Infrastructure.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -66,7 +67,8 @@ namespace Tests.App.UseCases.InserNewTopicTaskTest
                          topicTaskRepository.Object,
                          topicRepository.Object,
                          unitWork.Object,
-                         notification
+                         notification,
+                         new TopicTaskServices()
                          );
         }
     }

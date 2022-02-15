@@ -47,5 +47,13 @@ namespace Infrastructure.Repositories
                 .OrderByDescending(x => x.DateTimestamp)
                 .FirstOrDefaultAsync(task => task.Topic == topic);
         }
+
+        public async Task<List<TopicTask>> GetAllTopicTasks(Topic topic)
+        {
+            return await context.TopicTasks
+                .Where(task => task.Topic == topic)
+                .OrderByDescending(x => x.DateTimestamp)
+                .ToListAsync();
+        }
     }
 }

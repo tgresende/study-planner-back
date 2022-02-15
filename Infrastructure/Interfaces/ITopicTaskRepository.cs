@@ -13,5 +13,7 @@ namespace Infrastructure.Interfaces
         Task<TopicTask> GetTopicTask(int topicTaskId);
 
         Task<TopicTask> GetLastTopicTask(Topic topic);
+
+        Task<List<TopicTask>> GetAllTopicTasks(Topic topic);
     }
 }

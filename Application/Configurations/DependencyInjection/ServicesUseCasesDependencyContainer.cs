@@ -8,6 +8,7 @@ using Application.UseCases.Topics.GetTopicsFromSubjectUseCase;
 using Application.UseCases.TopicTasks.FinalizeTopicTaskUseCase;
 using Application.UseCases.TopicTasks.GenerataCycleTaskUseCase;
 using Application.UseCases.TopicTasks.GetActiveTopicTasksUseCase;
+using Application.UseCases.TopicTasks.GetAllTopicTaskUseCase;
 using Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase;
 using Application.UseCases.TopicTasks.UpdateTopicTaskUseCase;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,7 @@ namespace Application.Configurations.DependencyInjection
             services.AddScoped<IUpdateTopicTaskUseCase, UpdateTopicTaskUseCase>();
             services.AddScoped<IFinalizeTopicTaskUseCase, FinalizeTopicTaskUseCase>();
             services.AddScoped<IGenerateCycleTaskUseCase, GenerateCycleTaskUseCase>();
+            services.AddScoped<IGetAllTopicTaskUseCase, GetAllTopicTaskUseCase>();
         }
 
         public static void RegisterApplcationServices(IServiceCollection services)

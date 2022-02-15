@@ -1,11 +1,10 @@
 ﻿using Application.Services.Notifications;
 using Application.UseCases.TopicTasks.GetActiveTopicTasksUseCase;
-using Application.UseCases.TopicTasks.InsertNewTopicTaskUseCase;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Web_App.Controllers.UseCases.TopicTasks.GetActiveTopicTasks
+namespace Web_App.Controllers.UseCases.TopicTasks.GetAllTopicTask
 {
     [ApiController]
     [Route("api/[controller]")]

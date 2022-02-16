@@ -11,15 +11,20 @@ namespace Application.UseCases.Topics.AddTopicUseCase
         private readonly INotification notification;
         private readonly ISubjectRepository subjectRepository;
         private readonly ITopicRepository topicRepository;
+        private readonly ITopicTaskRepository topicTaskRepository;
+
         private readonly IUnitWork unitWork;
 
         public AddTopicUseCase(ISubjectRepository subjectRepository, ITopicRepository topicRepository,
-            INotification notification, IUnitWork unitWork)
+            INotification notification, IUnitWork unitWork,
+            ITopicTaskRepository topicTaskRepository
+        )
         {
             this.notification = notification;
             this.subjectRepository = subjectRepository;
             this.topicRepository = topicRepository;
             this.unitWork = unitWork;
+            this.topicTaskRepository = topicTaskRepository;
         }
 
         public async Task<AddTopicResponseModel?> InsertTopic(AddNewTopicRequestModel requestModel)
@@ -54,7 +59,17 @@ namespace Application.UseCases.Topics.AddTopicUseCase
                 Subject = subject
             };
 
+            TopicTask task = new TopicTask
+            {
+                Action = "Questões 1",
+                ActionDescription = "Reconhecimento",
+                Topic = topic,
+                DateTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(),
+                Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
+            };
+
             await topicRepository.InsertTopic(topic);
+            await topicTaskRepository.InsertNewTopicTask(task);
 
             await unitWork.SaveChanges();
 

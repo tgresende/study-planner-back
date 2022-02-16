@@ -5,6 +5,7 @@ using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
@@ -20,8 +21,6 @@ namespace Infrastructure.Repositories
 
         public async Task<List<GetTopicsFromSubjectResponseModel>> GetTopicsFromSubject(Subject subject)
         {
-            List<int> topicIds = new List<int> { 2014, 2013 };
-
             return await _context.TopicTasks
                         .Where(task => task.Topic.Subject == subject)
                         .GroupBy(r => new { r.Topic.TopicId, r.Topic.Anotations, r.Topic.Name })

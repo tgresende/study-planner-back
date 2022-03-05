@@ -60,6 +60,35 @@ namespace Infrastructure.Migrations
                     b.ToTable("Subjects");
                 });
 
+            modelBuilder.Entity("Domain.Entities.SubjectTask", b =>
+                {
+                    b.Property<int>("SubjectTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InternalOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MinutesStudy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PonderatedWeightScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubjectTaskId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("SubjectTasks");
+                });
+
             modelBuilder.Entity("Domain.Entities.Topic", b =>
                 {
                     b.Property<int>("TopicId")
@@ -134,6 +163,16 @@ namespace Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("Domain.Entities.SubjectTask", b =>
+                {
+                    b.HasOne("Domain.Entities.Subject", "Subject")
+                        .WithMany("SubjectTasks")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("Domain.Entities.Topic", b =>
                 {
                     b.HasOne("Domain.Entities.Subject", "Subject")
@@ -161,6 +200,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Subject", b =>
                 {
+                    b.Navigation("SubjectTasks");
+
                     b.Navigation("Topics");
                 });
 

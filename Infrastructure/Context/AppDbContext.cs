@@ -15,6 +15,7 @@ namespace Infrastructure.Context
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicTask> TopicTasks { get; set; }
+        public DbSet<SubjectTask> SubjectTasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace Infrastructure.Context
             DatabaseSubjectConfiguration.Configure(modelBuilder);
             DatabaseTopicConfiguration.Configure(modelBuilder);
             DatabaseTopicTaskConfiguration.Configure(modelBuilder);
+            DatabaseSubjectTaskConfiguration.Configure(modelBuilder);
         }
     }
 }

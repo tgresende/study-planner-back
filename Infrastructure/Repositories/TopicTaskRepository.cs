@@ -28,7 +28,7 @@ namespace Infrastructure.Repositories
         {
             return await context.TopicTasks
                 .Where(task =>
-                    task.Status == Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready &&
+                    task.Status == Domain.Enums.TaskEnum.TaskStatus.Ready &&
                     topicIds.Any(id => id == task.Topic.TopicId)
                  )
                 .Include(task => task.Topic)
@@ -51,7 +51,7 @@ namespace Infrastructure.Repositories
         public async Task<List<TopicTask>> GetAllTopicTasks(Topic topic)
         {
             return await context.TopicTasks
-                .Where(task => task.Topic == topic)
+                .Where(task => task.Topic == topic && task.Status == Domain.Enums.TaskEnum.TaskStatus.Finished)
                 .OrderByDescending(x => x.DateTimestamp)
                 .ToListAsync();
         }

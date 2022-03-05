@@ -65,7 +65,7 @@ namespace Application.UseCases.Topics.AddTopicUseCase
                 ActionDescription = "Reconhecimento",
                 Topic = topic,
                 DateTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(),
-                Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
+                Status = Domain.Enums.TaskEnum.TaskStatus.Ready
             };
 
             await topicRepository.InsertTopic(topic);

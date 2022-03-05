@@ -17,6 +17,11 @@ namespace Infrastructure.Configurations.DatabaseConfigurations
               .Entity<Subject>()
               .HasMany(e => e.Topics)
               .WithOne(e => e.Subject);
+
+            modelBuilder
+              .Entity<Subject>()
+              .HasMany(e => e.SubjectTasks)
+              .WithOne(e => e.Subject);
         }
     }
 }

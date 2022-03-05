@@ -18,6 +18,6 @@ namespace Domain.Entities
         public string RevisionItem { get; set; }
         public int DoneQuestionQuantity { get; set; }
         public int CorrectQuestionQuantity { get; set; }
-        public TopicTaskEnum.TopicTaskStatus Status { get; set; }
+        public TaskEnum.TaskStatus Status { get; set; }
     }
 }

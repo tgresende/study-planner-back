@@ -10,5 +10,7 @@ namespace Infrastructure.Interfaces
     public interface IProjectRepository
     {
         Task<Project> GetProject(int projectId);
+
+        Task<Project> GetSubjectsProject(int projectId);
     }
 }

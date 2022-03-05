@@ -1,8 +1,11 @@
 ﻿using Application.Services.Notifications;
 using Application.Services.TopicTask;
 using Application.Services.TopicTasks;
+using Application.UseCases.Subjects.GenerateSubjectCycleUseCase;
+using Application.UseCases.Subjects.GetActiveSubjectTasksUseCase;
 using Application.UseCases.Subjects.GetSubjectsFromProjectUseCase;
 using Application.UseCases.Subjects.UpdateSubjectAnnotationsUseCase;
+using Application.UseCases.SubjectTasks.FinalizeSubjectTaskUseCase;
 using Application.UseCases.Topics.AddTopicUseCase;
 using Application.UseCases.Topics.GetTopicsFromSubjectUseCase;
 using Application.UseCases.TopicTasks.FinalizeTopicTaskUseCase;
@@ -20,7 +23,12 @@ namespace Application.Configurations.DependencyInjection
         public static void RegisterApplcationUseCases(IServiceCollection services)
         {
             services.AddScoped<IGetSubjectsFromProjectUseCase, GetSubjectsFromProjectUseCase>();
+
+            services.AddScoped<IGetActiveSubjectTasksUseCase, GetActiveSubjectTasksUseCase>();
+            services.AddScoped<IFinalizeSubjectTaskUseCase, FinalizeSubjectTaskUseCase>();
+
             services.AddScoped<IUpdateSubjectAnnotationsUseCase, UpdateSubjectAnnotationsUseCase>();
+            services.AddScoped<IGenerateSubjectCycleUseCase, GenerateSubjectCycleUseCase>();
 
             services.AddScoped<IGetTopicsFromSubjectUseCase, GetTopicsFromSubjectUseCase>();
             services.AddScoped<IAddTopicUseCase, AddTopicUseCase>();

@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace Application.UseCases.TopicTasks.FinalizeTopicTaskUseCase
@@ -28,7 +29,8 @@ namespace Application.UseCases.TopicTasks.FinalizeTopicTaskUseCase
             topicTask.RevisionItem = requestModel.RevisionItem;
             topicTask.DoneQuestionQuantity = requestModel.DoneQuestionQuantity;
             topicTask.CorrectQuestionQuantity = requestModel.CorrectQuestionQuantity;
-            topicTask.Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Finished;
+            topicTask.Status = Domain.Enums.TaskEnum.TaskStatus.Finished;
+            topicTask.DateTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
 
             await unitWork.SaveChanges();
         }

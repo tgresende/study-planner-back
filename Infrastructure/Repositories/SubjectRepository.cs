@@ -21,13 +21,16 @@ namespace Infrastructure.Repositories
         public async Task<List<GetSubjectsFromProjectResponseModel>> GetSubjectsFromProject(Project project)
         {
             return await _context.Subjects
-                 .Where(sub => sub.Project == project)
+                .Where(sub => sub.Project == project)
+                .Include(sub => sub.Topics)
+                .ThenInclude(top => top.TopicTasks)
                 .Select(sub => new GetSubjectsFromProjectResponseModel
                 {
                     SubjectId = sub.SubjectId,
                     Name = sub.Name,
                     Weight = sub.Weight,
                     Annotations = sub.Annotations,
+                    Score = sub.GetScore()
                 }).ToListAsync();
         }
 

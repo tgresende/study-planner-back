@@ -16,7 +16,7 @@ namespace Application.UseCases.TopicTasks.GenerataCycleTaskUseCase
         private readonly ITopicTaskServices topicTaskServices;
         private readonly IUnitWork unitWork;
 
-        private string actionB = "";
+        private string actionB = null;
 
         public GenerateCycleTaskUseCase(ITopicRepository topicRepository,
             ITopicTaskRepository topicTaskRepository,
@@ -54,7 +54,7 @@ namespace Application.UseCases.TopicTasks.GenerataCycleTaskUseCase
             if (score == "A")
                 nextAction = GetNextCycleA(task);
             else if (score == "B")
-                nextAction = GetNextCycleB();
+                nextAction = GetNextCycleB(task);
             else
                 nextAction = GetNextCycleC(task);
 
@@ -79,8 +79,11 @@ namespace Application.UseCases.TopicTasks.GenerataCycleTaskUseCase
             }
         }
 
-        private string GetNextCycleB()
+        private string GetNextCycleB(TopicTask lastTask)
         {
+            if (actionB == null)
+                actionB = lastTask.Action;
+
             switch (actionB)
             {
                 case "Questões 1":

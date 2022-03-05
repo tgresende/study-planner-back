@@ -16,7 +16,7 @@ namespace Application.Services.TopicTask
                 Action = topicTaskRequestModel.Action,
                 ActionDescription = topicTaskRequestModel.ActionDescription,
                 ActionSource = topicTaskRequestModel.ActionSource,
-                Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
+                Status = Domain.Enums.TaskEnum.TaskStatus.Ready
             };
         }
 
@@ -27,7 +27,7 @@ namespace Application.Services.TopicTask
                 Topic = topic,
                 DateTimestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds(),
                 Action = action,
-                Status = Domain.Enums.TopicTaskEnum.TopicTaskStatus.Ready
+                Status = Domain.Enums.TaskEnum.TaskStatus.Ready
             };
         }
 
